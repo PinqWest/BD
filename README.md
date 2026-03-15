@@ -114,3 +114,52 @@ psql -U your_user -d your_database -f task2_subordinates_hierarchy.sql
 ```
 
 Файл задания: **task2_subordinates_hierarchy.sql**
+
+---
+
+# Задание 3. Функция: увеличение цен на 10% и возврат количества записей
+
+## Что делает скрипт
+
+1. Создаёт таблицу **products** (если её ещё нет).
+2. Заполняет её примерами данных.
+3. Создаёт функцию **increase_prices_10_percent()**.
+
+## Таблица
+
+- **products** — товары: `id`, `product_name`, `price`.
+
+### Скриншот таблицы
+
+**Таблица products**
+
+![Таблица products](img/product.png)
+
+## Функция increase_prices_10_percent()
+
+- Перебирает **все записи** таблицы products.
+- Увеличивает цену каждого товара **на 10%**.
+- **Обновляет** таблицу.
+- **Возвращает** количество обработанных записей (тип `INTEGER`).
+
+### Как работает внутри
+
+- Один `UPDATE` по всей таблице: `SET price = price * 1.10`.
+- Количество обновлённых строк берётся через `GET DIAGNOSTICS ... ROW_COUNT`.
+- Функция написана на **plpgsql** (нужна для переменной и возврата числа).
+
+## Пример вызова
+
+```sql
+SELECT increase_prices_10_percent();
+```
+
+Вернёт число обработанных (обновлённых) записей.
+
+## Запуск
+
+```bash
+psql -U your_user -d your_database -f task3_increase_prices.sql
+```
+
+Файл задания: **task3_increase_prices.sql**
